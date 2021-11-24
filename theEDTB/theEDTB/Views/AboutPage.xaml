@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theEDTB.Views.AboutPage"
+             xmlns:vm="clr-namespace:theEDTB.ViewModels"
+             Title="INPUT">
+    
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#800</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+                <Label Text="Communication Methods" FontSize="Title" HorizontalTextAlignment="Center" TextColor="Red" TextTransform="Uppercase" FontAttributes="Bold"/>
+                <Label Text="Choose the communication method needed" HorizontalTextAlignment="Center" FontSize="18"/>
+                <Label FontSize="16" Padding="0,0,0,0">
+                </Label>
+                <Button Margin="30,0,250,10" Text="RS-232"
+                        Clicked ="OnButtonClicked" 
+                        BackgroundColor="darkred"
+                        TextColor="White" />
+                
+                <Button Margin="140,-69,140,10" Text="RS-422"
+                        Clicked ="OnButtonClicked" 
+                        BackgroundColor="darkred"
+                        TextColor="White" />
+                
+                <Button Margin="250,-68,30,00" Text="RS-485"
+                        Clicked ="OnButtonClicked" 
+                        BackgroundColor="darkred"
+                        TextColor="White" />
+                
+                <Button Margin="30,10,250,0" Text="CAN"
+                        Clicked ="OnButtonClicked" 
+                        BackgroundColor="darkred"
+                        TextColor="White" />
+                
+                <Button Margin="140,-60,140,0" Text="I2C"
+                        Clicked ="OnButtonClicked" 
+                        BackgroundColor="darkred"
+                        TextColor="White" />
+                
+                <Button Margin="250,-60,30,00" Text="SPI"
+                        Clicked ="OnButtonClicked" 
+                        BackgroundColor="darkred"
+                        TextColor="White" />
+                
+                <Button Margin="145,10,145,0" Text="MODBUS"
+                        Clicked ="OnButtonClicked" 
+                        BackgroundColor="darkred"
+                        TextColor="White" />
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>
