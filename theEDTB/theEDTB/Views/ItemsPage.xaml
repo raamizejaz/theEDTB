@@ -2,10 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="theEDTB.Views.ItemsPage"
-             Title="{Binding Title}"
+             Title="Bluetooth"
              xmlns:local="clr-namespace:theEDTB.ViewModels"  
              xmlns:model="clr-namespace:theEDTB.Models"  
-             x:Name="BrowseItemsPage">
+             x:Name="BrowseItemsPage"
+             xmlns:vm="clr-namespace:theEDTB.ViewModels">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
@@ -14,7 +15,56 @@
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
       https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
     -->
-    <RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">red</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <vm:ItemsViewModel></vm:ItemsViewModel>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Padding="30,0,30,10" Spacing="10">
+            <Label Text="EDTB Bluetooth Connection" FontSize="Title" HorizontalTextAlignment="Center" TextColor="Red" TextTransform="Uppercase" FontAttributes="Bold"/>
+            <Label FontSize="16" Padding="0,0,0,0">
+            </Label>
+            <Label x:Name="networkState" />
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="btnStatus" Text="Status" Clicked="btnStatus_Clicked"/>
+                <Button x:Name="btnScan" Text="Scan" Clicked="btnScan_Clicked"/>
+                <Label x:Name="txtErrorBle" Text=""/>
+                <Button x:Name="btnConnect" Text="Connect" Clicked="btnConnect_Clicked"/>
+   <!--             <Button x:Name="btnKnowConnect" Text="connect known device" Clicked="btnKnowConnect_Clicked"/>-->
+            </StackLayout>
+   <!--        <StackLayout Orientation="Horizontal">
+                <Button x:Name="btnGetServices" Text="Get list of services" Clicked="btnGetServices_Clicked"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="btnGetCharacters" Text="get characteristics" Clicked="btnGetCharacters_Clicked"/>
+                <Button x:Name="btnGetRW" Text="Read/Write" Clicked="btnGetRW_Clicked"/>
+                <Button x:Name="btnUpdate" Text="update" Clicked="btnUpdate_Clicked"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="btnDescriptors" Text="Get descriptors" Clicked="btnDescriptors_Clicked"/>
+                <Button x:Name="btnDescRW" Text="read/write descriptor" Clicked="btnDescRW_Clicked"/>
+            </StackLayout>-->
+            <ListView x:Name="lv" ItemSelected="Lv_ItemSelected" BackgroundColor="White" SeparatorColor="Black">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <Label Text="{Binding NativeDevice.Id}"/>
+                                <Label Text="{Binding NativeDevice.Name}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+    <!--<RefreshView x:DataType="local:ItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView x:Name="ItemsListView"
                 ItemsSource="{Binding Items}"
                 SelectionMode="None">
@@ -40,5 +90,5 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-    </RefreshView>
+    </RefreshView>-->
 </ContentPage>

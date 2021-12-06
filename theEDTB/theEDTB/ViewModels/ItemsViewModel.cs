@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Plugin.BLE.Abstractions.Contracts;
+using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using theEDTB.Models;
 using theEDTB.Views;
@@ -11,11 +14,34 @@ namespace theEDTB.ViewModels
     public class ItemsViewModel : BaseViewModel
     {
         private Item _selectedItem;
+        private IDevice _nativeDevice;
 
         public ObservableCollection<Item> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command<Item> ItemTapped { get; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public IDevice NativeDevice
+        {
+            get 
+            {
+                return _nativeDevice;
+            }
+            set
+            {
+                _nativeDevice = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        protected void RaisePropertyChanged([CallerMemberName] string caller = "")
+        {
+            if(PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(caller));
+            }
+        }
 
         public ItemsViewModel()
         {
@@ -80,5 +106,7 @@ namespace theEDTB.ViewModels
             // This will push the ItemDetailPage onto the navigation stack
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
         }
+
+
     }
 }

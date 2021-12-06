@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -6,7 +6,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />  
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <Compile Remove="SelectDevicePage.xaml.cs" />
+    <Compile Remove="TransiverPage.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="SelectDevicePage.xaml" />
+    <EmbeddedResource Remove="TransiverPage.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MvvmCross.Plugin.BLE" Version="2.1.2" />
+    <PackageReference Include="Plugin.BLE" Version="2.1.2" />
+    <PackageReference Include="Plugin.Bluetooth" Version="1.0.3" />
+    <PackageReference Include="Plugin.BluetoothClassic" Version="1.1.5" />
+    <PackageReference Include="Plugin.BluetoothLE" Version="6.3.0.19" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v11.0\Mono.Android.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

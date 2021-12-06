@@ -15,6 +15,7 @@ namespace theEDTB
 
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
+            //MainPage = new NavigationPage(new SelectDevicePage());
         }
 
         protected override void OnStart()
