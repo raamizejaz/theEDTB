@@ -130,15 +130,19 @@
                        Padding="-45,0,-20,0"
                        />
                             <Picker x:Name="Frequency" 
-                            Title="MHz"
+                            Title="Hz"
                                     HorizontalTextAlignment="Center"
                             MinimumWidthRequest="500"
                             MinimumHeightRequest="50"
                                     WidthRequest="120"
                             Margin="0,-15,40,0">
                                 <Picker.Items>
+                                    <x:String>100 MHz</x:String>
+                                    <x:String>200 MHz</x:String>
                                     <x:String>500 MHz</x:String>
-                                    <x:String>2000 MHz</x:String>
+                                    <x:String>100 kHz</x:String>
+                                    <x:String>200 kHz</x:String>
+                                    <x:String>500 kHz</x:String>
                                 </Picker.Items>
                             </Picker>
 
@@ -184,7 +188,7 @@
                             <Button 
                         x:Name="btnTransmit" Text="Transmit" Clicked="btnTransmit_Clicked" BackgroundColor="DarkRed" HorizontalOptions="Center" WidthRequest="150"/>
                             <Button 
-                        x:Name="btnRecive" Text="Receive" Clicked="btnRecive_Clicked" BackgroundColor="DarkRed"  HorizontalOptions="Center" WidthRequest="150"/>
+                        x:Name="btnRecive" Text="Receive"  Clicked="btnRecive_Clicked" BackgroundColor="DarkRed"  HorizontalOptions="Center" WidthRequest="150"/>
                         </StackLayout>
                     </StackLayout>
                 </ScrollView>

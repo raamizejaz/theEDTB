@@ -59,6 +59,7 @@ namespace theEDTB.Views
                 var adapter = DependencyService.Resolve<IBluetoothAdapter>();
                 using (var connection = adapter.CreateConnection(device))
                 {
+
                     if (await connection.RetryConnectAsync(retriesCount: 2))
                     {
                         byte[] buffer = new byte[BufferSize];
@@ -396,13 +397,22 @@ namespace theEDTB.Views
         private void Editor_Completed(object sender, EventArgs e) //Display Method Choices
         {
 
-            var text = ((Editor)sender).Text; //getting text from the message text editor
+            var text = (sender as Editor).Text; //getting text from the message text editor
             //ASCII TEXT RELAY
             DisplayAlert("Message:", text, "okay", "close"); //will display original message in ASCII text
             string v = DisplayMethod.Items[0]; //binary
             string u = DisplayMethod.Items[1]; //Hexadecimal
+            string freq1 = Frequency.Items[0];
+            string freq2 = Frequency.Items[1];
+            string freq3 = Frequency.Items[2];
+            string freq4 = Frequency.Items[3];
+            string freq5 = Frequency.Items[4];
+            string freq6 = Frequency.Items[5];
+            string bps1 = BaudRate.Items[0];
+            string bps2 = BaudRate.Items[1];
             int selectedIndex = DisplayMethod.SelectedIndex;
-
+            string selindex1 = (string)BaudRate.SelectedItem;
+            string selindex2 = (string)Frequency.SelectedItem;
             //hex conversion
             string bin = "";
             if (selectedIndex == 1)
@@ -412,12 +422,12 @@ namespace theEDTB.Views
                     int tmp = c;
                     bin += String.Format("{0:x2}", (uint)System.Convert.ToUInt32(tmp.ToString())); //Converts each character to hexadecimal
                 }
-                DisplayAlert("Message:", bin, "okay", "close"); //displays hex version of message
+                DisplayAlert("Message:", bin + "\n" + "Baud Rate: " + selindex1 + "\n" + "Frequency: " + selindex2, "okay", "close"); //displays hex version of message
             }
 
             //string k = selectedIndex;
             //binary conversion
-            if (selectedIndex == 0)
+            else if (selectedIndex == 0)
             {
                 //byte[] data;
                 string result = string.Empty; //string to store binary version of text in
@@ -430,8 +440,9 @@ namespace theEDTB.Views
                     }
                     result += binarybyte; //stores the binary converted byte into result. Similar to arrays in theory
                 }
-                DisplayAlert("Message:", result, "okay", "close");  //displays binary version of message
+                DisplayAlert("Message:", message: result +"\n"+ "Baud Rate: "+selindex1 +"\n"+ "Frequency: " + selindex2, "okay", "close");  //displays binary version of message
             }
+           
         }
     }
 }
