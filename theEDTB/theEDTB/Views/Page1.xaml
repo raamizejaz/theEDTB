@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="theEDTB.Views.Page1"
+             Title="Inputs Page">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="0" HorizontalOptions="StartAndExpand"
+                      FontSize="21" TextColor="Black"
+                       Text= "Transmitted/Received Value (Binary):"/>
+                <Label Grid.Column="0" Grid.Row="0" HorizontalOptions="EndAndExpand" Padding="20,0,12,-10"
+                      FontSize="22" TextColor="Black"
+                       Text= "{Binding Source={x:Reference stepperDigit}, Path=Value}"/>
+                <Stepper Grid.Column="0" Grid.Row="0" HorizontalOptions="StartAndExpand" IsVisible="false"
+                         x:Name="stepperDigit"
+                         Minimum="000" Maximum="111" Increment="01" Value="000" Scale="1" />
+
+                <Label Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" FontSize="30"
+                       x:Name="displayLabel"
+                       Text="Mux Bit Value"
+                       VerticalOptions="CenterAndExpand" 
+                       TextColor="Red"
+                       />
+                
+
+                <!-- Inputs page from previous EDTB application version -->
+                <ScrollView Grid.Row="2" Grid.RowSpan="10">
+
+                    <StackLayout Orientation="Vertical" Padding="20,0,30,10" Spacing="10" >
+                        <Label Text="Communication Methods" FontSize="Title" HorizontalTextAlignment="Center" TextColor="Red" TextTransform="Uppercase" FontAttributes="Bold"/>
+                        <Label FontSize="16" Padding="0,0,0,0">
+                        </Label>
+                        <StackLayout Orientation="Horizontal" Padding="30,-40,30,0" Spacing="10">
+                            <Button Margin="0,0,0,0" Text="RS-232"
+                        CornerRadius="100"
+                        WidthRequest="90"
+                        HeightRequest="90"
+                        Clicked ="On232Clicked" 
+                        Command="{Binding binaryvalue}"
+                        BackgroundColor="darkred"
+                        TextColor="White" />
+
+                            <Button Margin="0,0,0,0" Text="RS-422"
+                        CornerRadius="100"
+                        WidthRequest="90"
+                        HeightRequest="90"
+                        Clicked ="On422Clicked" 
+                        BackgroundColor="darkred"
+                        TextColor="White" />
+
+                            <Button Margin="0,0,0,0" Text="RS-485"
+                        CornerRadius="100"
+                        WidthRequest="90"
+                        HeightRequest="90"
+                        Clicked ="On485Clicked" 
+                        BackgroundColor="darkred"
+                        TextColor="White" />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" Padding="30,0,30,0" Spacing="10">
+                            <Button Margin="0,0,0,0" Text="CAN"
+                        CornerRadius="100"
+                        WidthRequest="90"
+                        HeightRequest="90"
+                        Clicked ="OnCANClicked" 
+                        BackgroundColor="darkred"
+                        TextColor="White" />
+
+                            <Button Margin="0,0,0,0" Text="I2C"
+                        CornerRadius="100"
+                        WidthRequest="90"
+                        HeightRequest="90"
+                        Clicked ="OnI2CClicked" 
+                        BackgroundColor="darkred"
+                        TextColor="White" />
+
+                            <Button Margin="0,0,0,0" Text="SPI"
+                        CornerRadius="100"
+                        Clicked ="OnSPIClicked" 
+                        WidthRequest="90"
+                        HeightRequest="90"
+                        BackgroundColor="darkred"
+                        TextColor="White" />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" Padding="30,0,30,0" Spacing="10">
+                            <Button Margin="100,00,0,10" Text="MODBUS"
+                        CornerRadius="100"
+                        WidthRequest="90"
+                        HeightRequest="90"
+                        Clicked ="OnMODBUSClicked"
+                        BackgroundColor="darkred"
+                        TextColor="White"
+                        />
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" Padding="30,0,20,0" Spacing="10">
+                            <Label x:Name="BaudRateSlider"
+                       Text="Baud Rate: "
+                       TextColor="Black"
+                       FontSize="18"
+                       Padding="-45,0,-20,0"
+                       />
+
+                            <Picker x:Name="BaudRate" 
+                            Title="BPS"
+                                    HorizontalTextAlignment="Center"
+                            MinimumWidthRequest="500"
+                            MinimumHeightRequest="50"
+                                    WidthRequest="120"
+                            Margin="10,-15,40,0">
+                                <Picker.Items>
+                                    <x:String>9600 BPS</x:String>
+                                    <x:String>115200 BPS</x:String>
+                                </Picker.Items>
+                            </Picker>
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" Padding="30,0,20,0" Spacing="10">
+                            <Label x:Name="FrequencySlider"
+                       Text="Frequency:   "
+                       TextColor="Black"
+                       FontSize="18"
+                       Padding="-45,0,-20,0"
+                       />
+                            <Picker x:Name="Frequency" 
+                            Title="MHz"
+                                    HorizontalTextAlignment="Center"
+                            MinimumWidthRequest="500"
+                            MinimumHeightRequest="50"
+                                    WidthRequest="120"
+                            Margin="0,-15,40,0">
+                                <Picker.Items>
+                                    <x:String>500 MHz</x:String>
+                                    <x:String>2000 MHz</x:String>
+                                </Picker.Items>
+                            </Picker>
+
+
+                        </StackLayout>
+
+                        <StackLayout Orientation="Horizontal" Padding="30,0,90,0" Spacing="10">
+                            <Label Text="Display Method: "
+                           Padding="-45,0,-500,40"
+                                   
+                           FontSize="18"
+                           TextColor="Black"
+                        />
+                            <Picker x:Name="DisplayMethod" 
+                            Title="Display Method"
+                            MinimumWidthRequest="500"
+                            MinimumHeightRequest="50"
+                                    WidthRequest="145"
+                                    HorizontalTextAlignment="Center"
+                            Margin="80,-10,40,55">
+                                <Picker.Items>
+                                    <x:String>Binary</x:String>
+                                    <x:String>Hexidecimal</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </StackLayout>
+                        
+                        <StackLayout Orientation="Horizontal" Padding="30,-30,30,0" Spacing="10">
+                            <Label Text="Message: "
+                       Padding="-45,10,0,0"
+                       FontSize="18"
+                       TextColor="Black"/>
+                            <Editor Placeholder="Enter message to display"
+                            HorizontalOptions="Start"
+                            VerticalOptions="StartAndExpand"
+                            AutoSize="TextChanges"
+                            Completed="Editor_Completed"
+                            MinimumWidthRequest="3"
+                            />
+                        </StackLayout>
+                        
+                        <StackLayout Orientation="Horizontal" Padding="20,5,30,0" Spacing="10">
+                            <Button 
+                        x:Name="btnTransmit" Text="Transmit" Clicked="btnTransmit_Clicked" BackgroundColor="DarkRed" HorizontalOptions="Center" WidthRequest="150"/>
+                            <Button 
+                        x:Name="btnRecive" Text="Receive" Clicked="btnRecive_Clicked" BackgroundColor="DarkRed"  HorizontalOptions="Center" WidthRequest="150"/>
+                        </StackLayout>
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -175,7 +175,7 @@ namespace theEDTB.Views
             //binary conversion
             if (selectedIndex == 0)
             {
-                byte[] data;
+                //byte[] data;
                 string result = string.Empty; //string to store binary version of text in
                 foreach (byte value in text) //for each byte in the text
                 {

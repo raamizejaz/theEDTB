@@ -17,17 +17,24 @@
 
   <ItemGroup>
     <PackageReference Include="MvvmCross.Plugin.BLE" Version="2.1.2" />
+    <PackageReference Include="OpenXmlPowerTools" Version="4.5.3.2" />
     <PackageReference Include="Plugin.BLE" Version="2.1.2" />
     <PackageReference Include="Plugin.Bluetooth" Version="1.0.3" />
     <PackageReference Include="Plugin.BluetoothClassic" Version="1.1.5" />
     <PackageReference Include="Plugin.BluetoothLE" Version="6.3.0.19" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />  
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="Mono.Android">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v11.0\Mono.Android.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\Page1.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

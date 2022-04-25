@@ -11,15 +11,15 @@ using Xamarin.Forms;
 
 namespace theEDTB.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class ItemsViewModel : INotifyPropertyChanged
     {
-        private Item _selectedItem;
+        //private Item _selectedItem;
         private IDevice _nativeDevice;
 
-        public ObservableCollection<Item> Items { get; }
+       /* public ObservableCollection<Item> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public Command<Item> ItemTapped { get; }*/
         public event PropertyChangedEventHandler PropertyChanged;
 
         public IDevice NativeDevice
@@ -43,7 +43,7 @@ namespace theEDTB.ViewModels
             }
         }
 
-        public ItemsViewModel()
+        /*public ItemsViewModel()
         {
             Title = "Browse";
             Items = new ObservableCollection<Item>();
@@ -96,7 +96,7 @@ namespace theEDTB.ViewModels
         private async void OnAddItem(object obj)
         {
             await Shell.Current.GoToAsync(nameof(NewItemPage));
-        }
+        }*/
 
         async void OnItemSelected(Item item)
         {

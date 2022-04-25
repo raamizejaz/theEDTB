@@ -11,7 +11,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
 using System.IO;
-using Plugin.BluetoothLE;
+//using Plugin.BluetoothLE;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions;
 using System.Collections.ObjectModel;
@@ -20,6 +20,9 @@ using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.Contracts;
 using IDevice = Plugin.BLE.Abstractions.Contracts.IDevice;
 using Plugin.BLE.Abstractions.EventArgs;
+using OpenXmlPowerTools;
+using Plugin.BluetoothClassic.Abstractions;
+using Plugin.BLE.Abstractions.Extensions;
 
 namespace theEDTB.Views
 {
@@ -28,9 +31,9 @@ namespace theEDTB.Views
     {
         ItemsViewModel _viewModel;
         IBluetoothLE ble;  //BLUETOOTH LOW ENERGY
-        Plugin.BLE.Abstractions.Contracts.IAdapter adapter;
+        IAdapter adapter;
         ObservableCollection<IDevice> deviceList;
-        IDevice device;
+        private IDevice device;
         public ItemsPage()
         {
             InitializeComponent();
@@ -38,7 +41,7 @@ namespace theEDTB.Views
             adapter = CrossBluetoothLE.Current.Adapter;
             deviceList = new ObservableCollection<IDevice>();
             lv.ItemsSource = deviceList;
-            BindingContext = _viewModel = new ItemsViewModel();
+            //BindingContext = _viewModel = new ItemsViewModel();
         }
         private void btnStatus_Clicked(object sender, EventArgs e) //CHECKING IF BLUETOOTH CONNECTIVITY IS ON/OFF/AVAILABLE ON MOBILE DEVICE
         {
@@ -59,15 +62,15 @@ namespace theEDTB.Views
         {
             try 
             {
-            deviceList.Clear();
-            adapter.DeviceDiscovered += (s, a) => //WILL ADD DEVICE TO CLEARED LIST TO BE SELECTED
-            {
+                deviceList.Clear();
+                adapter.DeviceDiscovered += (s, a) => //WILL ADD DEVICE TO CLEARED LIST TO BE SELECTED
+                {
                 deviceList.Add(a.Device);
-            };
-            if (!ble.Adapter.IsScanning) //IF THE SCANNER IS NOT RUNNING
-            {
-                await adapter.StartScanningForDevicesAsync();
-            }
+                };
+                if (!ble.Adapter.IsScanning) //IF THE SCANNER IS NOT RUNNING
+                {
+                    await adapter.StartScanningForDevicesAsync();
+                }
          
             }
             catch (Exception ex)
@@ -80,20 +83,20 @@ namespace theEDTB.Views
         {
             try
             {
-               
+                //device = (BluetoothDeviceModel)e.SelectedItem;
                 if (device != null) //IF DEVICE IS AVAIABLE
                 {
                     await adapter.ConnectToDeviceAsync(device); //CONNECT TO SELECTED DEVICE
-                    DisplayAlert("Device:", "Connected!" , "ok");
+                    await DisplayAlert("Device:", "Connected!", "ok");
                 }
                 else //IF THERE IS NO DEVICE AVAILABLE
                 {
-                    DisplayAlert("Notice","no device selected", "ok");
+                    await DisplayAlert("Notice", "no device selected", "ok");
                 }
             }
             catch (DeviceConnectionException ex)
             {
-                 DisplayAlert("Notice", ex.Message.ToString(), "ok");
+                 await DisplayAlert("Notice", ex.Message.ToString(), "ok");
             }
         }
 
@@ -139,13 +142,19 @@ namespace theEDTB.Views
         {
          
         }
-    
-        protected override void OnAppearing()
+
+        public override bool Equals(object obj)
         {
-            base.OnAppearing();
-            _viewModel.OnAppearing();
+            return obj is ItemsPage page &&
+                   EqualityComparer<ObservableCollection<IDevice>>.Default.Equals(deviceList, page.deviceList);
         }
 
-       
+        /* protected override void OnAppearing()
+         {
+             base.OnAppearing();
+             _viewModel.OnAppearing();
+         }*/
+
+
     }
 }
